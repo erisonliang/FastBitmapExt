@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Drawing2D;
 
 namespace Hazdryx.Drawing.Extension
 {
@@ -243,7 +244,7 @@ namespace Hazdryx.Drawing.Extension
         }
 
         /// <summary>
-        ///     Multiplies the RGB components by a scalar.
+        ///     Multiplies the color components by a scalar.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="scalar"></param>
@@ -254,7 +255,8 @@ namespace Hazdryx.Drawing.Extension
             {
                 R = c.R * scalar,
                 G = c.G * scalar,
-                B = c.B * scalar
+                B = c.B * scalar,
+                A = c.A * scalar
             };
         }
         /// <summary>
