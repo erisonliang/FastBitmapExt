@@ -103,6 +103,22 @@ namespace Hazdryx.Drawing.Extension
         ///     Gets the magnitude of the color.
         /// </summary>
         public float Magnitude => (float) Math.Sqrt(Magnitude);
+        /// <summary>
+        ///     Gets a premultiplied version of this color.
+        /// </summary>
+        public ColorF PreMultiplied
+        {
+            get
+            {
+                return new ColorF
+                {
+                    R = R * A,
+                    G = G * A,
+                    B = B * A,
+                    A = A
+                };
+            }
+        }
 
         /// <summary>
         ///     Clamps the color components to be between 0 and 1.
@@ -208,37 +224,40 @@ namespace Hazdryx.Drawing.Extension
         }
 
         /// <summary>
-        ///     Multiplies two colors and maintains
-        ///     the first color's alpha.
+        ///     Multiplies two colors' RGB values, which the second
+        ///     color is premultiplied. Alpha of the first color is
+        ///     maintained.
         /// </summary>
         /// <param name="c1"></param>
         /// <param name="c2"></param>
         /// <returns></returns>
         public static ColorF operator *(ColorF c1, ColorF c2)
         {
+            ColorF pm = c2.PreMultiplied;
             return new ColorF
             {
-                R = c1.R * c2.R,
-                G = c1.G * c2.G,
-                B = c1.B * c2.B,
+                R = c1.R * pm.R,
+                G = c1.G * pm.G,
+                B = c1.B * pm.B,
                 A = c1.A
             };
         }
-
         /// <summary>
-        ///     Divides two colors and maintains the first
-        ///     color's alpha.
+        ///     Divides two colors' RGB values, which the second
+        ///     color is premultiplied. Alpha of the first color is
+        ///     maintained.
         /// </summary>
         /// <param name="c1"></param>
         /// <param name="c2"></param>
         /// <returns></returns>
         public static ColorF operator /(ColorF c1, ColorF c2)
         {
+            ColorF pm = c2.PreMultiplied;
             return new ColorF
             {
-                R = c1.R / c2.R,
-                G = c1.G / c2.G,
-                B = c1.B / c2.B,
+                R = c1.R / pm.R,
+                G = c1.G / pm.G,
+                B = c1.B / pm.B,
                 A = c1.A
             };
         }
