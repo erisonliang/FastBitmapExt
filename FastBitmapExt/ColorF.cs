@@ -160,21 +160,21 @@ namespace Hazdryx.Drawing.Extension
         /// <summary>
         ///     Blends two colors together based on their alphas.
         /// </summary>
-        /// <param name="c1"></param>
-        /// <param name="c2"></param>
+        /// <param name="cb">Back color</param>
+        /// <param name="cf">Fore color</param>
         /// <returns></returns>
-        public static ColorF operator +(ColorF c1, ColorF c2)
+        public static ColorF operator +(ColorF cb, ColorF cf)
         {
-            float a = c1.A + c2.A;
-            float a1 = c1.A / a;
-            float a2 = 1 - a1;
+            float af = cf.A;
+            float ab = af * (1 - cb.A);
+            float ao = af + ab;
 
             return new ColorF
             {
-                R = c1.R * a1 + c2.R * a2,
-                G = c1.G * a1 + c2.G * a2,
-                B = c1.B * a1 + c2.B * a2,
-                A = a
+                R = (cf.R * af + cb.R * ab) / ao,
+                G = (cf.G * af + cb.G * ab) / ao,
+                B = (cf.B * af + cb.B * ab) / ao,
+                A = ao
             };
         }
 
