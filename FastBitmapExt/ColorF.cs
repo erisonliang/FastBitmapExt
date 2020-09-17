@@ -207,8 +207,8 @@ namespace Hazdryx.Drawing.Extension
         }
 
         /// <summary>
-        ///     Multiplies two colors together and uses alpha 
-        ///     blending to find the alpha.
+        ///     Multiplies two colors and maintains
+        ///     the first color's alpha.
         /// </summary>
         /// <param name="c1"></param>
         /// <param name="c2"></param>
@@ -220,13 +220,13 @@ namespace Hazdryx.Drawing.Extension
                 R = c1.R * c2.R,
                 G = c1.G * c2.G,
                 B = c1.B * c2.B,
-                A = CalcAlphaOut(c1.A, c2.A)
+                A = c1.A
             };
         }
 
         /// <summary>
-        ///     Divides two colors and uses alpha 
-        ///     blending to find the alpha.
+        ///     Divides two colors and maintains the first
+        ///     color's alpha.
         /// </summary>
         /// <param name="c1"></param>
         /// <param name="c2"></param>
@@ -238,24 +238,12 @@ namespace Hazdryx.Drawing.Extension
                 R = c1.R / c2.R,
                 G = c1.G / c2.G,
                 B = c1.B / c2.B,
-                A = CalcAlphaOut(c1.A, c2.A)
+                A = c1.A
             };
         }
 
         /// <summary>
-        ///     Calculates the alpha out (ao) if they
-        ///     were being blended.
-        /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <returns></returns>
-        private static float CalcAlphaOut(float a1, float a2)
-        {
-            return a1 + a2 * (1 - a1);
-        }
-
-        /// <summary>
-        ///     Multiplies a color by a scalar.
+        ///     Multiplies the RGB components by a scalar.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="scalar"></param>
@@ -266,19 +254,18 @@ namespace Hazdryx.Drawing.Extension
             {
                 R = c.R * scalar,
                 G = c.G * scalar,
-                B = c.B * scalar,
-                A = c.A * scalar,
+                B = c.B * scalar
             };
         }
         /// <summary>
-        ///     Multiplies a color by a scalar.
+        ///     Multiplies the RGB components by a scalar.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="scalar"></param>
         /// <returns></returns>
         public static ColorF operator *(float scalar, ColorF c) => c * scalar;
         /// <summary>
-        ///     Divides a color by a scalar (Multiplies by 1 / scalar).
+        ///     Divides the RGB components by a scalar (Multiplies by 1 / scalar).
         /// </summary>
         /// <param name="c"></param>
         /// <param name="scalar"></param>
