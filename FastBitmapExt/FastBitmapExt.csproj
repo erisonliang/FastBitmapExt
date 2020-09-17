@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Hazdryx.FastBitmapExt</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Christopher Bishop</Authors>
+    <Company>Hazdryx</Company>
+    <Description>Extension methods for Hazdryx.Drawing.FastBitmap class.</Description>
+    <Copyright>Christopher Bishop</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/hazdryx/FastBitmapExt</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hazdryx/FastBitmapExt</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Product>Hazdryx.FastBitmapExt</Product>
   </PropertyGroup>
 
   <ItemGroup>
