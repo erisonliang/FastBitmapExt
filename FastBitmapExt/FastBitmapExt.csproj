@@ -8,7 +8,7 @@
     <Authors>Christopher Bishop</Authors>
     <Company>Hazdryx</Company>
     <Description>Extension methods for Hazdryx.Drawing.FastBitmap class.</Description>
-    <Copyright>Christopher Bishop</Copyright>
+    <Copyright>Copyright © Christopher Bishop 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/hazdryx/FastBitmapExt</PackageProjectUrl>
     <RepositoryUrl>https://github.com/hazdryx/FastBitmapExt</RepositoryUrl>
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hazdryx.FastBitmap" Version="1.0.0" />
+    <PackageReference Include="Hazdryx.FastBitmap" Version="1.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
