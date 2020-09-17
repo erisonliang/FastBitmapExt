@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO.IsolatedStorage;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -209,6 +210,54 @@ namespace Hazdryx.Drawing.Extension
                 B = c1.B - c2.B,
                 A = c1.A - c2.A
             };
+        }
+
+        /// <summary>
+        ///     Multiplies two colors together and uses alpha 
+        ///     blending to find the alpha.
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
+        public static ColorF operator *(ColorF c1, ColorF c2)
+        {
+            return new ColorF
+            {
+                R = c1.R * c2.R,
+                G = c1.G * c2.G,
+                B = c1.B * c2.B,
+                A = CalcAlphaOut(c1.A, c2.A)
+            };
+        }
+
+        /// <summary>
+        ///     Divides two colors and uses alpha 
+        ///     blending to find the alpha.
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
+        public static ColorF operator /(ColorF c1, ColorF c2)
+        {
+            return new ColorF
+            {
+                R = c1.R / c2.R,
+                G = c1.G / c2.G,
+                B = c1.B / c2.B,
+                A = CalcAlphaOut(c1.A, c2.A)
+            };
+        }
+
+        /// <summary>
+        ///     Calculates the alpha out (ao) if they
+        ///     were being blended.
+        /// </summary>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <returns></returns>
+        private static float CalcAlphaOut(float a1, float a2)
+        {
+            return a1 + a2 * (1 - a1);
         }
 
         /// <summary>
