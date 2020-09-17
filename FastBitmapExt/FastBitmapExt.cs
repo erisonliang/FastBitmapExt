@@ -21,7 +21,6 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 */
-using System;
 using System.Threading.Tasks;
 
 namespace Hazdryx.Drawing.Extension
@@ -31,6 +30,48 @@ namespace Hazdryx.Drawing.Extension
     /// </summary>
     public static class FastBitmapExt
     {
+        /// <summary>
+        ///     Gets a color at the index as a ColorF.
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static ColorF GetF(this FastBitmap self, int index)
+        {
+            return new ColorF(self.Data[index]);
+        }
+        /// <summary>
+        ///     Gets the color at a coordinate as a ColorF.
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static ColorF GetF(this FastBitmap self, int x, int y)
+        {
+            return new ColorF(self.Data[x + y * self.Width]);
+        }
+        /// <summary>
+        ///     Sets the color at an index using a ColorF.
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="color"></param>
+        /// <param name="index"></param>
+        public static void SetF(this FastBitmap self, ColorF color, int index)
+        {
+            self.Data[index] = color.ToArgb();
+        }
+        /// <summary>
+        ///     Sets the color at a coordinate using a ColorF.
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="color"></param>
+        /// <param name="index"></param>
+        public static void SetF(this FastBitmap self, ColorF color, int x, int y)
+        {
+            self.Data[x + y * self.Width] = color.ToArgb();
+        }
+
         /// <summary>
         ///     Streams each Y value to the callback.
         /// </summary>
