@@ -36,16 +36,24 @@ namespace Hazdryx.Drawing.Extension
         /// </summary>
         /// <param name="callback">The callback delgate</param>
         /// <param name="threads">The number of threads to use.</param>
-        public static void StreamByLine(this FastBitmap bitmap, StreamByLineCallback callback, int threads)
+        public static void StreamByLine(this FastBitmap self, StreamByLineCallback callback, int threads)
         {
             Task[] tasks = new Task[threads];
             for (int i = 0; i < threads; i++)
             {
-                tasks[i] = new Task(new ScanlineStreamInfo(bitmap, callback, i, threads).GetAction());
+                tasks[i] = new Task(new ScanlineStreamInfo(self, callback, i, threads).GetAction());
                 tasks[i].Start();
             }
 
             Task.WaitAll(tasks);
+        }
+        /// <summary>
+        ///     Streams each Y value to the callback on a single thread.
+        /// </summary>
+        /// <param name="callback">The callback delgate</param>
+        public static void StreamByLine(this FastBitmap self, StreamByLineCallback callback)
+        {
+            self.StreamByLine(callback, 1);
         }
 
         /// <summary>
@@ -53,15 +61,24 @@ namespace Hazdryx.Drawing.Extension
         /// </summary>
         /// <param name="callback">The callback delegate</param>
         /// <param name="threads">The number threads to use.</param>
-        public static void StreamByPixel(this FastBitmap bitmap, StreamByPixelCallback callback, int threads)
+        public static void StreamByPixel(this FastBitmap self, StreamByPixelCallback callback, int threads)
         {
-            bitmap.StreamByLine(new StreamByLineCallback((bmp, y) =>
+            self.StreamByLine(new StreamByLineCallback((bmp, y) =>
             {
                 for (int x = 0; x < bmp.Width; x++)
                 {
                     callback(bmp, x, y);
                 }
             }), threads);
+        }
+        /// <summary>
+        ///     Streams each X and Y value to the callback on a
+        ///     single thread.
+        /// </summary>
+        /// <param name="callback">The callback delegate</param>
+        public static void StreamByPixel(this FastBitmap self, StreamByPixelCallback callback)
+        {
+            self.StreamByPixel(callback, 1);
         }
     }
 
