@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
 
 namespace Hazdryx.Drawing.Extension
 {
@@ -169,6 +168,7 @@ namespace Hazdryx.Drawing.Extension
             return a << 24 | r << 16 | g << 8 | b;
         }
 
+        #region Operators
         /// <summary>
         ///     Blends two colors together based on their alphas.
         /// </summary>
@@ -292,5 +292,6 @@ namespace Hazdryx.Drawing.Extension
         /// <param name="scalar"></param>
         /// <returns></returns>
         public static ColorF operator /(ColorF c, float scalar) => c * (1 / scalar);
+        #endregion
     }
 }
