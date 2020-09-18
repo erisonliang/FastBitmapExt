@@ -23,7 +23,7 @@
 */
 using System;
 
-namespace Hazdryx.Drawing.Extension
+namespace Hazdryx.Drawing
 {
     /// <summary>
     ///     A class which stores information about the stream.

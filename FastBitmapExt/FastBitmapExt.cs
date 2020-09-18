@@ -24,7 +24,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Hazdryx.Drawing.Extension
+namespace Hazdryx.Drawing
 {
     /// <summary>
     ///     A class which contains various extensions for FastBitmap.
