@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Hazdryx.Drawing.Extension
 {
@@ -24,6 +25,14 @@ namespace Hazdryx.Drawing.Extension
             this.G = color.G;
             this.B = color.B;
             this.A = color.A;
+        }
+        /// <summary>
+        ///     Instantiates a color which is a copy of the
+        ///     System.Drawing.Color given.
+        /// </summary>
+        /// <param name="color"></param>
+        public ColorF(Color color) : this(color.R, color.G, color.B, color.A)
+        {
         }
         /// <summary>
         ///     Instantiates color with the specified values.

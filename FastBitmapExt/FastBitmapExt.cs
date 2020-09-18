@@ -21,6 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 */
+using System;
 using System.Threading.Tasks;
 
 namespace Hazdryx.Drawing.Extension
@@ -31,45 +32,128 @@ namespace Hazdryx.Drawing.Extension
     public static class FastBitmapExt
     {
         /// <summary>
-        ///     Gets a color at the index as a ColorF.
+        ///     Gets the color of a pixel as a floating point color.
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="index"></param>
+        /// <param name="index">Index of the pixel.</param>
         /// <returns></returns>
         public static ColorF GetF(this FastBitmap self, int index)
         {
             return new ColorF(self.Data[index]);
         }
         /// <summary>
-        ///     Gets the color at a coordinate as a ColorF.
+        ///     Gets the color of a pixel as a floating point color.
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public static ColorF GetF(this FastBitmap self, int x, int y)
-        {
-            return new ColorF(self.Data[x + y * self.Width]);
-        }
-        /// <summary>
-        ///     Sets the color at an index using a ColorF.
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="color"></param>
         /// <param name="index"></param>
-        public static void SetF(this FastBitmap self, ColorF color, int index)
+        /// <param name="color"></param>
+        /// <returns>Whether the color was successfully obtained.</returns>
+        public static bool TryGetF(this FastBitmap self, int index, out ColorF color)
+        {
+            try
+            {
+                color = new ColorF(self.Data[index]);
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                color = new ColorF(FastBitmap.DefaultColor);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Sets the color of a pixel as a floating point color.
+        /// </summary>
+        /// <param name="index">Index of the pixel.</param>
+        /// <param name="color">New color of the pixel.</param>
+        public static void SetF(this FastBitmap self, int index, ColorF color)
         {
             self.Data[index] = color.ToArgb();
         }
         /// <summary>
-        ///     Sets the color at a coordinate using a ColorF.
+        ///     Sets the color of a pixel as a floating point color.
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="color"></param>
         /// <param name="index"></param>
-        public static void SetF(this FastBitmap self, ColorF color, int x, int y)
+        /// <param name="color"></param>
+        /// <returns>Whether the color was set.</returns>
+        public static bool TrySetF(this FastBitmap self, int index, ColorF color)
         {
-            self.Data[x + y * self.Width] = color.ToArgb();
+            try
+            {
+                self.Data[index] = color.ToArgb();
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        private static int PointToIndex(int x, int y, int width, int height)
+        {
+            if (x < 0 || x >= width || y < 0 || y >= height)
+                throw new ArgumentOutOfRangeException();
+            else
+                return x + y * width;
+        }
+        /// <summary>
+        ///     Gets color of a pixel as a floating point color.
+        /// </summary>
+        /// <param name="x">X component of the pixel.</param>
+        /// <param name="y">Y component of the pixel.</param>
+        /// <returns></returns>
+        public static ColorF GetF(this FastBitmap self, int x, int y)
+        {
+            return new ColorF(self.Data[PointToIndex(x, y, self.Width, self.Height)]);
+        }
+        /// <summary>
+        ///     Gets color of a pixel as a floating point color.
+        /// </summary>
+        /// <param name="x">X component of the pixel.</param>
+        /// <param name="y">Y component of the pixel.</param>
+        /// <param name="color">Default color if out of range.</param>
+        /// <returns>Whether the color was successfully obtained.</returns>
+        public static bool TryGetF(this FastBitmap self, int x, int y, out ColorF color)
+        {
+            try
+            {
+                color = new ColorF(self.Data[PointToIndex(x, y, self.Width, self.Height)]);
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                color = new ColorF(FastBitmap.DefaultColor);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Sets the color of a pixel as a floating point color.
+        /// </summary>
+        /// <param name="x">X component of the pixel.</param>
+        /// <param name="y">Y component of the pixel.</param>
+        /// <param name="color">New color of the pixel.</param>
+        public static void SetF(this FastBitmap self, int x, int y, ColorF color)
+        {
+            self.Data[PointToIndex(x, y, self.Width, self.Height)] = color.ToArgb();
+        }
+        /// <summary>
+        ///     Sets the color of a pixel as a floating point color.
+        /// </summary>
+        /// <param name="x">X component of the pixel.</param>
+        /// <param name="y">Y component of the pixel.</param>
+        /// <param name="color">New color of the pixel.</param>
+        /// <returns>Whether the color was set.</returns>
+        public static bool TrySetF(this FastBitmap self, int x, int y, ColorF color)
+        {
+            try
+            {
+                self.Data[PointToIndex(x, y, self.Width, self.Height)] = color.ToArgb();
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
         }
 
         /// <summary>
